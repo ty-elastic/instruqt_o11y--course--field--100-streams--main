@@ -153,51 +153,6 @@ threads:
         messages: nominal
         logs_per_second: 50
 
-
-  - name: spark_sigevents
-    language: java
-    mode: classic
-    format: structured
-
-    messages:
-      nominal:
-        file:
-          path: logs/Spark_2k.log_structured.csv
-          type: csv
-        order: loop
-      errors:
-        lines:
-          - body: "memory.MemoryStore (Not enough space to cache rdd_22_1, so persisting partition to disk instead)"
-            level: WARNING
-          - body: |
-              java.lang.OutOfMemoryError (Java heap space)
-                at org.apache.spark.sql.execution.UnsafeRowSerializerInstance.serialize(UnsafeRowSerializer.scala:56)
-                at org.apache.spark.shuffle.sort.ShufflePartitionPairsWriter.write(ShufflePartitionPairsWriter.java:78)
-                at org.apache.spark.shuffle.sort.SortShuffleWriter.write(SortShuffleWriter.java:63)
-                at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)
-                at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:55)
-                at org.apache.spark.scheduler.Task.run(Task.scala:121)
-                at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:444)
-                at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-                at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-                at java.lang.Thread.run(Thread.java:748)
-            level: ERROR   
-        order: loop
-
-    schedule:
-      - type: generate_exception
-        messages: errors
-        filter:
-          percent: 75
-        duration_minutes: 0.1
-        repeat:
-          min_minutes: 1
-          max_minutes: 10
-
-      - type: service
-        messages: nominal
-        logs_per_second: 50
-
   - name: trader
     language: python
     format: structured
