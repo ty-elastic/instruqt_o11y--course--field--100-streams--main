@@ -2,7 +2,7 @@
 slug: partitioning
 id: 8o0dee47ocrv
 type: challenge
-title: Intro
+title: Partitioning
 notes:
 - type: text
   contents: Placeholder

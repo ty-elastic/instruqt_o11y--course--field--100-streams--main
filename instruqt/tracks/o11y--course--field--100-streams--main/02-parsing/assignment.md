@@ -2,7 +2,7 @@
 slug: parsing
 id: iahcxpqw9rzd
 type: challenge
-title: Intro
+title: Parsing
 notes:
 - type: text
   contents: Placeholder

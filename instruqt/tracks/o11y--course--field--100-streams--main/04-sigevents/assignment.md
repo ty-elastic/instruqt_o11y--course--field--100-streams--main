@@ -2,7 +2,7 @@
 slug: sigevents
 id: jqqcbcs3672c
 type: challenge
-title: Intro
+title: Significant Events
 notes:
 - type: text
   contents: Placeholder
