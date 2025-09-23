@@ -7,8 +7,8 @@ COPY requirements.txt .
 RUN --mount=type=cache,target=/root/.cache/pip pip3 install --root-user-action=ignore -r requirements.txt
 
 COPY src src
-COPY logs /otel-logen/logs
-COPY config/otel-logen.yaml /otel-logen/config/otel-logen.yaml
+COPY logs logs
+COPY config/otel-logen.yaml config/otel-logen.yaml
 
 ENV PYTHONUNBUFFERED=1
 
