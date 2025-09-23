@@ -13,10 +13,10 @@ tabs:
   hostname: kubernetes-vm
   path: /app/streams
   port: 30001
-- id: lyqrwsofywhh
+- id: ezu9fmflpmef
   title: Terminal
   type: terminal
-  hostname: host-1
+  hostname: kubernetes-vm
   workdir: /workspace/workshop
 difficulty: basic
 timelimit: 600
