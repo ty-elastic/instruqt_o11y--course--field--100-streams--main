@@ -42,31 +42,3 @@ echo "Wait for realtime"
 retry_command_lin curl --silent --fail --output /dev/null http://kubernetes-vm:32003/status/realtime
 echo "realtime reached"
 
-dv=$(curl -X POST "$KIBANA_URL/api/data_views/data_view" \
-    --header 'Content-Type: application/json' \
-    --header "kbn-xsrf: true" \
-    --header "Authorization: Basic $ELASTICSEARCH_AUTH_BASE64" \
-    -d'
-    {
-      "data_view": {
-        "namespaces": [
-          "default"
-        ],
-        "title": "logs-proxy.otel-default",
-        "name": "logs-proxy.otel-default",
-        "timeFieldName": "@timestamp"
-      }
-    }')
-
-dv_id=$(echo $dv | jq --compact-output -r '.data_view.id')
-
-echo "Setup DV refresh for $dv_id"
-cat <<EOF >> dataview.sh
-while /bin/true; do
-  curl -s -o /dev/null -X GET "$KIBANA_URL/internal/data_views/fields?pattern=logs-proxy.otel-default&meta_fields=_source&meta_fields=_id&meta_fields=_index&meta_fields=_score&meta_fields=_ignored&allow_no_index=true&apiVersion=1" --header "kbn-xsrf: true" --header 'x-elastic-internal-origin: Kibana' --header "Authorization: Basic $ELASTICSEARCH_AUTH_BASE64";
-  sleep 1;
-done
-EOF
-chmod a+x dataview.sh
-nohup ./dataview.sh > dataview.log 2>&1 &
-echo "Setup DV refresh...done"
