@@ -2,7 +2,7 @@ source /opt/workshops/elastic-retry.sh
 export $(curl http://kubernetes-vm:9000/env | xargs)
 
 export INSTRUQT_TRACK_SLUG=o11y--course--field--100-streams--main
-export GITHUB_REPO=https://github.com/ty-elastic/instruqt_o11y--course--field--100-streams--main
+export GITHUB_REPO=https://github.com/ty-elastic/instruqt_$INSTRUQT_TRACK_SLUG
 
 # ------------- CODE
 
@@ -15,6 +15,12 @@ cd /workspace/workshop
 source /workspace/workshop/instruqt/scripts/elastic-view.sh
 
 # ------------- AI ASSISTANT
+
+curl -X POST "$KIBANA_URL/internal/observability_ai_assistant/kb/setup?inference_id=.elser-2-elasticsearch" \
+    --header 'Content-Type: application/json' \
+    --header "kbn-xsrf: true" \
+    --header "Authorization: Basic $ELASTICSEARCH_AUTH_BASE64" \
+    --header 'x-elastic-internal-origin: Kibana'
 
 source /workspace/workshop/instruqt/scripts/elastic-completion.sh
 
