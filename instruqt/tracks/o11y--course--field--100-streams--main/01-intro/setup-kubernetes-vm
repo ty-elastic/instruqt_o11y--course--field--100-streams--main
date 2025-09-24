@@ -16,13 +16,13 @@ source /workspace/workshop/instruqt/scripts/elastic-view.sh
 
 # ------------- AI ASSISTANT
 
+source /workspace/workshop/instruqt/scripts/elastic-completion.sh
+
 curl -X POST "$KIBANA_URL/internal/observability_ai_assistant/kb/setup?inference_id=.elser-2-elasticsearch" \
     --header 'Content-Type: application/json' \
     --header "kbn-xsrf: true" \
     --header "Authorization: Basic $ELASTICSEARCH_AUTH_BASE64" \
     --header 'x-elastic-internal-origin: Kibana'
-
-source /workspace/workshop/instruqt/scripts/elastic-completion.sh
 
 # ------------- STREAMS
 
